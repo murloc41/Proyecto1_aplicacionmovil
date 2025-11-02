@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/listado"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Detalle: {{ pacienteActual.nombre || 'Paciente' }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="mostrarConfirmacionEliminar()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <form [formGroup]="pacienteForm" (ngSubmit)="guardarCambios()">
+
+    <ion-item lines="full">
+      <ion-label position="floating">Nombre Completo</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="ion-margin-top">
+      <ion-label position="floating">ID/RUT Paciente</ion-label>
+      <ion-input formControlName="idPaciente"></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="ion-margin-top">
+      <ion-label position="floating">Piso (Internación)</ion-label>
+      <ion-input type="number" formControlName="piso"></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="ion-margin-top">
+      <ion-label>Turno Asignado</ion-label>
+      <ion-select formControlName="turno" placeholder="Seleccione el turno">
+        <ion-select-option *ngFor="let turno of turnos" [value]="turno">
+          {{ turno }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="pacienteForm.invalid" class="ion-margin-top" color="success">
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      Guardar Cambios
+    </ion-button>
+
+  </form>
+</ion-content>
